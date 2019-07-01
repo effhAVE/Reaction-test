@@ -1,5 +1,9 @@
 $colors: ("primary": #3978ff, "success": #43b335, "error": #dd4a4a);
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Helvetica, sans-serif;
 }
@@ -42,5 +46,21 @@ body {
 
     &.is-error {
         background-color: map-get($colors, "error");
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        font-size: 12px;
+    }
+
+    .test-container {
+        top: 0;
+        height: 100%;
+        padding: 1em;
+
+        & .title {
+            font-size: 3em;
+        }
     }
 }

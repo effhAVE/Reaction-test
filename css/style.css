@@ -1,3 +1,8 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 body {
   font-family: Helvetica, sans-serif;
 }
@@ -47,5 +52,19 @@ body {
 
 .test-container.is-error {
   background-color: #dd4a4a;
+}
+
+@media (max-width: 520px) {
+  body {
+    font-size: 12px;
+  }
+  .test-container {
+    top: 0;
+    height: 100%;
+    padding: 1em;
+  }
+  .test-container .title {
+    font-size: 3em;
+  }
 }
 /*# sourceMappingURL=style.css.map */

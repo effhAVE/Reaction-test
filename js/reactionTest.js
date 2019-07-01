@@ -8,6 +8,7 @@
     const descriptionEl = $(".description");
     const testDetailsEl = $(".test-details");
     const triesEl = $(".test-tries");
+    const averageEl = $(".test-average");
 
     const begin = function(options) {
         const status = {
@@ -38,9 +39,9 @@
                 return this.clickTimestamp - this.displayTimestamp;
             },
             average: function() {
-                return this.times.reduce(function(total, time) {
+                return (this.times.reduce(function(total, time) {
                     return total += time;
-                }) / this.times.length;
+                }, 0) / (this.times.length || 1)).toFixed(0);
             }
         };
 
@@ -49,6 +50,7 @@
             testContainerEl.classList.add(view.backgroundClass);
             titleEl.textContent = view.title;
             triesEl.textContent = "Próby: " + status.cycle + " / " + status.attempts;
+            averageEl.textContent = "Średnia: " + status.average() + "ms";
             if (view.name === "ready") {
                 status.displayTimestamp = Date.now();
             }
