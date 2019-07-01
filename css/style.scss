@@ -1,7 +1,11 @@
-$colors: ("primary": #3978ff, "success": #18cc00, "error": #da1818);
+$colors: ("primary": #3978ff, "success": #43b335, "error": #dd4a4a);
 
 body {
     font-family: Helvetica, sans-serif;
+}
+
+.is-hidden {
+    visibility: hidden;
 }
 
 .main {

@@ -1,7 +1,14 @@
 (function() {
-    const testContainerEl = document.getElementsByClassName("test-container")[0];
-    const titleEl = document.getElementsByClassName("title")[0];
-    const descriptionEl = document.getElementsByClassName("description")[0];
+    const $ = function(el) {
+        return document.querySelector(el);
+    }
+
+    const testContainerEl = $(".test-container");
+    const titleEl = $(".title");
+    const descriptionEl = $(".description");
+    const testDetailsEl = $(".test-details");
+    const triesEl = $(".test-tries");
+
     const begin = function(options) {
         const status = {
             currentStepIndex: 0,
@@ -22,7 +29,8 @@
                     backgroundClass: null,
                 }
             ],
-            attempts: 5 || options.attempts,
+            cycle: 1,
+            attempts: options.attempts || 5,
             displayTimestamp: null,
             clickTimestamp: null,
             times: [],
@@ -40,6 +48,7 @@
             testContainerEl.classList = "test-container";
             testContainerEl.classList.add(view.backgroundClass);
             titleEl.textContent = view.title;
+            triesEl.textContent = "Próby: " + status.cycle + " / " + status.attempts;
             if (view.name === "ready") {
                 status.displayTimestamp = Date.now();
             }
@@ -57,7 +66,12 @@
                     status.currentStepIndex++;
                 } else {
                     status.currentStepIndex = 0;
+                    status.cycle++;
                 }
+            }
+
+            if (status.cycle > status.attempts) {
+                return alert("Koniec testu! Średnia: " + status.average());
             }
 
             if (status.currentStepIndex === 0) {
@@ -81,6 +95,7 @@
 
         testContainerEl.removeEventListener("click", begin);
         testContainerEl.addEventListener("click", nextStep);
+        testDetailsEl.classList.remove("is-hidden");
         nextStep();
     }
 
