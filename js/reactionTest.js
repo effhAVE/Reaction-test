@@ -32,6 +32,7 @@
             ],
             cycle: 1,
             attempts: options.attempts || 5,
+            awaiting: false,
             displayTimestamp: null,
             clickTimestamp: null,
             times: [],
@@ -75,19 +76,21 @@
             if (status.cycle > status.attempts) {
                 return alert("Koniec testu! Średnia: " + status.average());
             }
-
-            if (status.currentStepIndex === 0) {
+            console.log(status.currentStepIndex);
+            if (status.currentStepIndex === 0 && !status.awaiting) {
                 render(status.steps[status.currentStepIndex]);
                 const delay = Math.random() * 4 + 1;
+                status.awaiting = true;
                 return setTimeout(function() {
                     render(status.steps[status.currentStepIndex]);
                     stepsHandler();
                     return nextStep();
                 }, delay * 1000);
-            } else if (status.currentStepIndex === 1) {
+            } else if (status.currentStepIndex === 1 && status.awaiting) {
+                status.awaiting = false;
                 render(status.steps[status.currentStepIndex]);
                 stepsHandler();
-            } else {
+            } else if (status.currentStepIndex === 2) {
                 status.clickTimestamp = Date.now();
                 status.times.push(status.difference());
                 render(status.steps[status.currentStepIndex]);
@@ -98,7 +101,7 @@
         testContainerEl.removeEventListener("click", begin);
         testContainerEl.addEventListener("click", nextStep);
         testDetailsEl.classList.remove("is-hidden");
-        nextStep();
+        return nextStep();
     }
 
     testContainerEl.addEventListener("click", begin);

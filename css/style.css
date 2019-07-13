@@ -38,6 +38,10 @@ body {
           flex-direction: column;
   padding: 2em 4em;
   cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .test-container .title {
