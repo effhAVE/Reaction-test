@@ -76,7 +76,7 @@
             if (status.cycle > status.attempts) {
                 return alert("Koniec testu! Średnia: " + status.average());
             }
-            console.log(status.currentStepIndex);
+
             if (status.currentStepIndex === 0 && !status.awaiting) {
                 render(status.steps[status.currentStepIndex]);
                 const delay = Math.random() * 4 + 1;
